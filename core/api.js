@@ -29,7 +29,7 @@ export class APIClient {
   /**
    * @todo - Handle cases where the API returns an error code.
    * @param {string} userId - the id of the user to fetch
-   * @returns {User} - the user from the api.
+   * @returns {Promise<User>} - the user from the api.
    */
   fetchUserById = async (userId) => {
     try {
