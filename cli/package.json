@@ -1,13 +1,19 @@
 {
-  "name": "client",
+  "name": "tmac",
   "version": "0.1.0",
   "description": "",
   "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "tmac": "./cli.js"
+  },
   "keywords": [],
   "author": "jude.boachie@amalitech.com",
   "license": "MIT",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "commander": "^14.0.2"
+  }
 }

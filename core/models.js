@@ -10,10 +10,6 @@ export const TodoStatus = Object.freeze({
  * Represents a todo
  */
 export class Todo {
-  #id;
-  #title;
-  #userId;
-
   /**
    * @param {string} id - unique id
    * @param {string} title - todo title
@@ -21,22 +17,27 @@ export class Todo {
    * @param {string} userId - links to the id field on a userId
    */
   constructor(id, title, isCompleted, userId) {
-    this.#id = id;
-    this.#title = title;
+    this.id = id;
+    this.title = title;
     this.isCompleted = isCompleted;
-    this.#userId = userId;
+    this.userId = userId;
   }
 
   static fromDict = (dict) => {
     try {
-      return new Todo(dict.id, dict.title, dict.isCompleted, dict.userId);
+      return new Todo(
+        dict.id,
+        dict.title,
+        Boolean(dict.completed),
+        dict.userId,
+      );
     } catch (err) {
       console.error(`Couldn't create user from dict: ${err}`);
     }
   };
 
   isCreatedBy = (userId) => {
-    return this.#userId == userId;
+    return this.userId == userId;
   };
 
   /**
@@ -55,8 +56,9 @@ export class Todo {
   }
 
   /**
-   * Checks if a Todo is overDue
-   * @returns {boolean} always returns false since the Todo base class does not have a `dueDate` attribute
+   * Checks if a Todo is overdue
+   * @returns {boolean} always returns false
+   * since the Todo base class does not have a `dueDate` attribute
    */
   isOverDue = () => false;
 }

@@ -2,19 +2,22 @@ import { Todo, User } from "./models.js";
 
 /**
  * Represents the API client used to fetch data
+ * from the jsonplaceholder api (https://jsonplaceholder.typicode.com)
  */
 export class APIClient {
   #BASEURL = "https://jsonplaceholder.typicode.com";
 
-  constructor() {}
+  constructor() {
+    // an api client can have timeout, ratelimiting, etc
+  }
 
   /**
    * Queries the api for users and returns a list of `User` objects
-   * @returns {User[]} list of users from the database
+   * @returns {Promise<User[]>} list of users from the database
    */
   fetchUsers = async () => {
     try {
-      let response = await fetch(this.#BASEURL + "/users"); // repeated code here
+      let response = await fetch(this.#BASEURL + "/users");
       let data = await response.json();
       let users = data.map((item) => User.fromDict(item));
       return users;
@@ -25,7 +28,7 @@ export class APIClient {
 
   /**
    * Queries the api for todos and returns a list of `Todo` objects
-   * @returns {Todo[]} list of todos from the database
+   * @returns {Promise<Todo[]>} list of todos from the database
    */
   fetchTodos = async () => {
     try {
@@ -39,9 +42,10 @@ export class APIClient {
   };
 
   /**
-   * Queries the api for todos and filters by userId; returns a list of `Todo` objects
+   * Queries the api for todos and filters by userId;
+   * returns a list of `Todo` objects
    * @param {string} userId - the unique userId to results by
-   * @returns {Todo[]} list of todos filtered by userId
+   * @returns {Promise<Todo[]>} list of todos filtered by userId
    */
   fetchTodosByUserId = async (userId) => {
     if (isNaN(Number(userId))) {
