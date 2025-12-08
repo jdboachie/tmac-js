@@ -3,10 +3,21 @@ const require = createRequire(import.meta.url);
 
 import { Command } from "commander";
 import { APIClient } from "../../core/api.js";
+import { writeFileSync } from "fs";
 
 const { version } = require("../package.json");
 const client = new APIClient();
 const program = new Command();
+
+/**
+ * Exports the given data to the given path.
+ * @param {string} path - the file path to write to
+ * @param {any} data - any serializable object
+ */
+function exportToJson(path, data) {
+  const payload = JSON.stringify(data, null, 2);
+  writeFileSync(path, payload, "utf-8");
+}
 
 program
   .name("tmac")
@@ -20,6 +31,7 @@ program
   )
   .option("-u, --user <number>", "filter todos by user", null)
   .option("-c, --complete <value>", "filter todos by completion", null)
+  .option("-e, --export [file]", "export to JSON file (default: todos.json)")
   .action(async (options) => {
     try {
       let todos = options.user
@@ -52,6 +64,13 @@ program
           title: t.title,
         })),
       );
+
+      if (options.export) {
+        const filePath =
+          typeof options.export == "string" ? options.export : "todos.json";
+        exportToJson(filePath, todos);
+        console.log(`Exported ${todos.length} todos to ${filePath}`)
+      }
     } catch (err) {
       console.error("Error fetching todos:", err);
     }

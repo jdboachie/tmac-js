@@ -61,6 +61,19 @@ export class Todo {
    * since the Todo base class does not have a `dueDate` attribute
    */
   isOverDue = () => false;
+
+  /**
+   * Serializes a Todo object to json
+   * @returns JSON representation of the Todo object
+   */
+  toJson = () => {
+    return {
+      id: this.id,
+      title: this.title,
+      isCompleted: this.isCompleted,
+      userId: this.userId,
+    };
+  };
 }
 
 /**
@@ -159,5 +172,18 @@ export class User {
    */
   getTodosByStatus = (status) => {
     return this.todos.filter((todo) => todo.getStatus() == status);
+  };
+
+  /**
+   * Serializes a User object o json
+   * @returns JSON representation of the User object
+   */
+  toJson = () => {
+    return {
+      id: this.id,
+      name: this.name,
+      email: this.email,
+      todos: this.todos,
+    };
   };
 }
