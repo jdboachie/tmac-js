@@ -71,7 +71,7 @@ function run() {
     event.preventDefault();
   };
 
-  // getTodos();
+  getTodos();
 
   pubsub.subscribe("TodoReplyEvent", (event) => {
     view.updateTodoList(event.data);
