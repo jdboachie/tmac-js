@@ -123,6 +123,12 @@ export class User {
     this.#todos = todos;
   }
 
+  /**
+   * Builds a new User object from a hashmap containing the requried fields.
+   * @param {Record<string, T} dict - input hashmap (from api)
+   * @returns {User | undefined} returns a new user object.
+   * Returns undefined if the operation failed
+   */
   static fromDict = (dict) => {
     try {
       return new User(dict.id, dict.name, dict.email, dict.todos ?? []);
