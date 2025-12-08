@@ -1,0 +1,174 @@
+@font-face {
+    font-family: "Inter";
+    src: url("./assets/fonts/InterDisplay-Regular.woff2") format("truetype");
+    font-weight: 1 1000;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --font-size-normal: 16px;
+    --font-size-sm: 11px;
+    --font-sans: "Inter";
+
+    --background: rgba(255, 255, 255, 1);
+    --border: rgba(0, 0, 0, 0.15);
+    --radius: 0.5rem;
+    --text-primary: rgba(0, 0, 0, 0.95);
+    --text-muted: rgba(75, 75, 75, 0.95);
+}
+
+html,
+body {
+    background-color: beige;
+}
+
+body {
+    position: relative;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    height: 100dvh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 528px;
+    margin: auto;
+}
+
+header {
+    padding-top: 8px;
+    background-color: beige;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.configbar {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.statbar {
+    border-top: 1px solid var(--border);
+    padding: 8px;
+    padding-top: 16px;
+}
+
+select {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background-color: rgba(255, 255, 255, 0.6);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-normal);
+    color: var(--text-primary);
+}
+
+select:focus {
+    outline: none;
+    border-color: darkorange;
+    box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.3)
+}
+
+main {
+    height: 100svh;
+    overflow-y: scroll;
+}
+
+.todo__form {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    margin-bottom: 32px;
+    width: 528px;
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0px 1px 0px 1px var(--border);
+    transition:
+        box-shadow 150ms ease-out,
+        border 150ms ease-out;
+}
+
+.todo__form:focus-within {
+    box-shadow:
+        0px 1px 0px 1px var(--border),
+        0px 5px 5px 5px var(--border);
+}
+
+.todo__form__button {
+    width: 30px;
+    height: 30px;
+    border-radius: 2px;
+    background-color: transparent;
+    border: none;
+}
+
+.todo__form__button > svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1;
+}
+
+.todo__form__input {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-normal);
+    color: var(--text-primary);
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+}
+
+.todo__form__input:focus {
+    outline: none;
+}
+
+.form__input__label {
+    width: 100%;
+    height: 100%;
+}
+
+.form__tip {
+    position: absolute;
+    bottom: -22px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+}
+
+.todo__list {
+    list-style: none;
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 120px;
+}
+
+.todo__item {
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) - 2px);
+    background-color: rgba(255, 255, 255, 0.625);
+}
