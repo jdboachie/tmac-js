@@ -105,11 +105,6 @@ export class PriorityTodo extends Todo {
  * Represents a User in our application
  */
 export class User {
-  #id;
-  #name;
-  #email;
-  #todos;
-
   /**
    * @param {string} id - unique id for each user
    * @param {string} name - the user's name (fistname lastname)
@@ -117,10 +112,10 @@ export class User {
    * @param {Todo[]} todos - an array of the user's todos.
    */
   constructor(id, name, email, todos) {
-    this.#id = id;
-    this.#name = name;
-    this.#email = email;
-    this.#todos = todos;
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.todos = todos;
   }
 
   /**
@@ -142,7 +137,7 @@ export class User {
    * @param {Todo} todo - the new todo
    */
   addTodo = (todo) => {
-    this.#todos.push(todo);
+    this.todos.push(todo);
   };
 
   /**
@@ -150,11 +145,11 @@ export class User {
    * @returns {number} completion rate (bewteen 0 and 1)
    */
   getCompletionRate = () => {
-    const numCompleted = this.#todos.reduce((num, todo) => {
+    const numCompleted = this.todos.reduce((num, todo) => {
       return todo.getStatus() === TodoStatus.COMPLETE ? num + 1 : num;
     }, 0);
 
-    return numCompleted > 0 ? numCompleted / this.#todos.length : 0;
+    return numCompleted > 0 ? numCompleted / this.todos.length : 0;
   };
 
   /**
@@ -163,6 +158,6 @@ export class User {
    * @returns {Todo[]} list of user's todos filtered by status
    */
   getTodosByStatus = (status) => {
-    return this.#todos.filter((todo) => todo.getStatus() == status);
+    return this.todos.filter((todo) => todo.getStatus() == status);
   };
 }

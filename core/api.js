@@ -27,6 +27,21 @@ export class APIClient {
   };
 
   /**
+   * @todo - Handle cases where the API returns an error code.
+   * @param {string} userId - the id of the user to fetch
+   * @returns {User} - the user from the api.
+   */
+  fetchUserById = async (userId) => {
+    try {
+      let response = await fetch(this.#BASEURL + `/users/${userId}`);
+      let data = await response.json();
+      return User.fromDict(data);
+    } catch (err) {
+      console.log(`Error fetching user: ${err}`);
+    }
+  };
+
+  /**
    * Queries the api for todos and returns a list of `Todo` objects
    * @returns {Promise<Todo[]>} list of todos from the database
    */
@@ -55,6 +70,7 @@ export class APIClient {
     try {
       let res = await fetch(this.#BASEURL + `/users/${userId}/todos`);
       let data = await res.json();
+      // TODO: should handle errors from the API
       let todos = data.map((item) => Todo.fromDict(item));
       return todos;
     } catch (error) {

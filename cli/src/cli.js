@@ -26,6 +26,13 @@ program
         ? await client.fetchTodosByUserId(options.user)
         : await client.fetchTodos();
 
+      if (!todos || todos.length === 0) {
+        console.log(
+          `No todos found for user ${options.user}. Try adjusting your filter`,
+        );
+        return;
+      }
+
       const complete =
         options.complete === (undefined || null)
           ? undefined
@@ -36,13 +43,6 @@ program
       if (complete !== undefined) {
         console.log(`Filtering by complete: ${options.complete}`);
         todos = todos.filter((t) => t.isCompleted === complete);
-      }
-
-      if (!todos || todos.length === 0) {
-        console.log(
-          `No todos found for user ${options.user}. Try adjusting your filter`,
-        );
-        return;
       }
 
       console.log("\n");
@@ -61,8 +61,25 @@ program
   .command("stat")
   .description("Show task statistics for a specified user")
   .argument("<user>", "The user to show statistics for")
-  .action((user) => {
-    console.log(`running stat for user with id: ${user}`);
+  .action(async (user) => {
+    if (user === null) {
+      console.error("No user id was supplied.");
+      return;
+    }
+
+    const todos = await client.fetchTodosByUserId(user);
+    let tempUser = await client.fetchUserById(todos[0].userId);
+    tempUser.todos = todos;
+
+    console.log(`Showing statistics for user: ${todos[0].userId}\n`);
+
+    console.log("[USER]");
+    console.log(tempUser.name);
+    console.log(tempUser.email, "\n");
+
+    console.log("[STATS]");
+    console.log(`Total todos:\t\t`, tempUser.todos.length);
+    console.log(`Completion Rate:\t`, `${tempUser.getCompletionRate() * 100}%`);
   });
 
 program.parse(process.argv);
