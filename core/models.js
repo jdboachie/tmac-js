@@ -29,7 +29,7 @@ export class Todo {
    * @returns {Todo | undefined} returns a new todo object.
    * Returns undefined if the operation failed
    */
-  static fromDict = (dict) => {
+  static fromDict(dict) {
     try {
       return new Todo(
         dict.id,
@@ -40,18 +40,18 @@ export class Todo {
     } catch (err) {
       console.error(`Couldn't create user from dict: ${err}`);
     }
-  };
+  }
 
-  isCreatedBy = (userId) => {
+  isCreatedBy(userId) {
     return this.userId == userId;
-  };
+  }
 
   /**
    * Toggles todo state. Completed ↔ Not Completed
    */
-  toggle = () => {
+  toggle() {
     this.isCompleted = !this.isCompleted;
-  };
+  }
 
   /**
    * TODO: THIS MIGHT BE REDUNDANT
@@ -72,14 +72,14 @@ export class Todo {
    * Serializes a Todo object to json
    * @returns JSON representation of the Todo object
    */
-  toJson = () => {
+  toJson() {
     return {
       id: this.id,
       title: this.title,
       isCompleted: this.isCompleted,
       userId: this.userId,
     };
-  };
+  }
 }
 
 /**
@@ -108,10 +108,10 @@ export class PriorityTodo extends Todo {
    * (was due at an earlier date and is not completed)
    * @returns {boolean} true if todo is overdue otherwise false
    */
-  isOverDue = () => {
+  isOverDue() {
     if (!this.#dueDate) return false;
     return new Date(this.#dueDate) < new Date() && !this.isCompleted;
-  };
+  }
 
   /**
    * Returns the status of a todo
@@ -143,48 +143,48 @@ export class User {
    * @returns {User | undefined} returns a new user object.
    * Returns undefined if the operation failed
    */
-  static fromDict = (dict) => {
+  static fromDict(dict) {
     try {
       return new User(dict.id, dict.name, dict.email, dict.todos ?? []);
     } catch (err) {
       console.error(`Couldn't create user from dict: ${err}`);
     }
-  };
+  }
 
   /**
    * Adds a todo to the user's todos
    * @param {Todo} todo - the new todo
    */
-  addTodo = (todo) => {
+  addTodo(todo) {
     this.todos.push(todo);
-  };
+  }
 
   /**
    * Calculates the percentage of completed user todos
    * @returns {number} completion rate (bewteen 0 and 1)
    */
-  getCompletionRate = () => {
+  getCompletionRate() {
     const numCompleted = this.todos.reduce((num, todo) => {
       return todo.getStatus() === TodoStatus.COMPLETE ? num + 1 : num;
     }, 0);
 
     return numCompleted > 0 ? numCompleted / this.todos.length : 0;
-  };
+  }
 
   /**
    * Returns the user's todos filtered by `status`
    * @param {Status} status - status filter
    * @returns {Todo[]} list of user's todos filtered by status
    */
-  getTodosByStatus = (status) => {
+  getTodosByStatus(status) {
     return this.todos.filter((todo) => todo.getStatus() == status);
-  };
+  }
 
   /**
    * Serializes a User object o json
    * @returns JSON representation of the User object
    */
-  toJson = () => {
+  toJson () {
     return {
       id: this.id,
       name: this.name,

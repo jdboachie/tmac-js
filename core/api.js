@@ -91,5 +91,5 @@ export class APIClient {
     } catch (error) {
       console.log(`Error fetching users: ${error}`);
     }
-  };
+  }
 }
