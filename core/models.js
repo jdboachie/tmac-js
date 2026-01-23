@@ -184,12 +184,12 @@ export class User {
    * Serializes a User object o json
    * @returns JSON representation of the User object
    */
-  toJson () {
+  toJson() {
     return {
       id: this.id,
       name: this.name,
       email: this.email,
       todos: this.todos,
     };
-  };
+  }
 }

@@ -1,4 +1,4 @@
-import { Todo, TodoStatus } from "./models";
+import { Todo, TodoStatus } from "./models.js";
 
 /**
  * Filters an array of Todos by their status
@@ -6,7 +6,7 @@ import { Todo, TodoStatus } from "./models";
  * @param {TodoStatus} status - task status to filter by
  */
 export const filterByStatus = (todos, status) => {
-  todos.filter((task) => task.getStatus() === status);
+  return todos.filter((task) => task.getStatus() === status);
 };
 
 /**
@@ -26,7 +26,7 @@ export const calculateStatistics = (todos) => {
  * @param {Todo[]} todos
  */
 export const groupByUser = (todos) => {
-  todos.reduce((acc, t) => {
+  return todos.reduce((acc, t) => {
     (acc[t.userId] ||= []).push(t);
     return acc;
   }, {});
