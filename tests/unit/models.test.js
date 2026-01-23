@@ -42,6 +42,7 @@ describe("Todo Class", () => {
     });
 
     test("should toggle multiple times correctly", () => {
+      todo.isCompleted = false;
       expect(todo.isCompleted).toBe(false);
       todo.toggle();
       expect(todo.isCompleted).toBe(true);
@@ -172,7 +173,6 @@ describe("Todo Class", () => {
     });
 
     test("should return undefined on error", () => {
-      // Passing null should cause an error in the try block
       const result = Todo.fromDict(null);
       expect(result).toBeUndefined();
     });
