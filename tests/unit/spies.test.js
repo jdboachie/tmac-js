@@ -1,8 +1,6 @@
 import { Todo, User, TodoStatus } from "../../core/models.js";
 import {
   filterByStatus,
-  calculateStatistics,
-  groupByUser,
 } from "../../core/taskProcessor.js";
 
 describe("Jest Spies - Function Call Verification (15% of tests)", () => {
