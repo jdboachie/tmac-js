@@ -5,6 +5,8 @@ const config = {
   coverageDirectory: "coverage",
   coverageProvider: "v8",
   transform: {},
+  injectGlobals: true,
+  setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
 };
 
 export default config;
